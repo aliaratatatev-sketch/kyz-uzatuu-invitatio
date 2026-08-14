@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ky">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Кыз узатуу тою</title>
+    <meta
+      name="description"
+      content="Кыз узатуу тоюна чакыруудагы сайт-приглашение."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  </head>
+  <body>
+
+    <!-- ============== REUSABLE EMBLEM: chandelier + corner flourish ============== -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <symbol id="chandelier-mark" viewBox="0 0 200 150">
+          <circle cx="100" cy="14" r="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <line x1="100" y1="17" x2="100" y2="34" stroke="currentColor" stroke-width="1"/>
+          <line x1="62" y1="34" x2="138" y2="34" stroke="currentColor" stroke-width="1"/>
+          <path d="M62 34 Q46 45 49 60" fill="none" stroke="currentColor" stroke-width="0.9"/>
+          <path d="M100 34 L100 68" stroke="currentColor" stroke-width="0.9"/>
+          <path d="M138 34 Q154 45 151 60" fill="none" stroke="currentColor" stroke-width="0.9"/>
+          <ellipse cx="49" cy="64" rx="3.6" ry="6.4" fill="currentColor" opacity="0.9"/>
+          <ellipse cx="100" cy="72" rx="3.6" ry="6.4" fill="currentColor" opacity="0.9"/>
+          <ellipse cx="151" cy="64" rx="3.6" ry="6.4" fill="currentColor" opacity="0.9"/>
+          <circle cx="100" cy="42" r="1.6" fill="currentColor" opacity="0.85"/>
+          <circle cx="100" cy="49" r="1.3" fill="currentColor" opacity="0.75"/>
+          <circle cx="100" cy="55" r="1" fill="currentColor" opacity="0.65"/>
+        </symbol>
+      </defs>
+    </svg>
+
+    <!-- Soft falling gold light animation -->
+    <div class="particles-container" aria-hidden="true">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+      <div class="particle particle-5"></div>
+      <div class="particle particle-6"></div>
+      <div class="particle particle-7"></div>
+      <div class="particle particle-8"></div>
+      <div class="particle particle-9"></div>
+      <div class="particle particle-10"></div>
+    </div>
+
+    <div class="petals-container" aria-hidden="true">
+      <span class="petal petal-1"></span>
+      <span class="petal petal-2"></span>
+      <span class="petal petal-3"></span>
+      <span class="petal petal-4"></span>
+      <span class="petal petal-5"></span>
+      <span class="petal petal-6"></span>
+    </div>
+
+    <div class="glow-orbs" aria-hidden="true">
+      <span class="glow-orb glow-orb-1"></span>
+      <span class="glow-orb glow-orb-2"></span>
+      <span class="glow-orb glow-orb-3"></span>
+    </div>
+
+    <div class="light-sweep" aria-hidden="true"></div>
+
+    <div class="page-bg" aria-hidden="true"></div>
+
+    <!-- Envelope Overlay -->
+    <div class="envelope-overlay" aria-hidden="true">
+      <div class="envelope-container">
+        <div class="envelope-scene">
+          <div class="envelope-body">
+            <div class="envelope-body-texture"></div>
+            <div class="envelope-body-fold left"></div>
+            <div class="envelope-body-fold right"></div>
+          </div>
+
+          <div class="envelope-letter">
+            <svg class="letter-emblem" viewBox="0 0 200 150"><use href="#chandelier-mark"/></svg>
+            <p class="letter-title">Миргүлдүн Кыз узатуу тоюна</p>
+            <p class="letter-sub">чакыруу</p>
+          </div>
+
+          <div class="envelope-flap"></div>
+
+          <div class="envelope-ribbon">
+            <span class="ribbon-loop left"></span>
+            <span class="ribbon-loop right"></span>
+            <span class="ribbon-knot"></span>
+            <span class="ribbon-tail left"></span>
+            <span class="ribbon-tail right"></span>
+          </div>
+
+          <div class="wax-seal">
+            <div class="seal-circle"></div>
+            <svg class="seal-mark" viewBox="0 0 200 150"><use href="#chandelier-mark"/></svg>
+            <div class="seal-monogram">A &amp; M</div>
+          </div>
+        </div>
+
+        <p class="envelope-hint">Ачуу үчүн басыңыз</p>
+      </div>
+    </div>
+
+    <!-- Music Player Button -->
+    <button class="music-player-btn" title="Музыка" aria-label="Музыканы ойнотуу/токтотуу" type="button">
+      <svg class="music-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9-9-4.03-9-9 4.03-9 9-9zm0 16c3.86 0 7-3.14 7-7s-3.14-7-7-7-7 3.14-7 7 3.14 7 7 7zm0-11c-1.1 0-2 .9-2 2v3c0 1.1.9 2 2 2s2-.9 2-2v-3c0-1.1-.9-2-2-2zm-3.5 2.5c-.28 0-.5.22-.5.5v2c0 .28.22.5.5.5s.5-.22.5-.5v-2c0-.28-.22-.5-.5-.5zm7 0c-.28 0-.5.22-.5.5v2c0 .28.22.5.5.5s.5-.22.5-.5v-2c0-.28-.22-.5-.5-.5z"/>
+      </svg>
+      <span class="music-wave"></span>
+    </button>
+
+    <!--
+      Download an elegant free piano track (see chat for suggestions) and save it
+      next to this file as "music.mp3". Two ready suggestions:
+      - "Wedding 01" by Francisco Alvear: https://mixkit.co/free-stock-music/tag/wedding/
+      - "Elegant Piano" by leberch: https://pixabay.com/music/search/elegant%20piano/
+    -->
+    <audio id="bgMusic" preload="none">
+      <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Intro / Cover Screen -->
+    <div class="intro-screen" aria-hidden="true">
+      <div class="cover-card">
+        <div class="cover-frame">
+          <div class="cover-ornament cover-ornament-left"></div>
+          <div class="cover-ornament cover-ornament-right"></div>
+          <svg class="cover-emblem" viewBox="0 0 200 150"><use href="#chandelier-mark"/></svg>
+          <div class="cover-monogram">A &amp; M</div>
+          <h1 class="cover-title">Кыз узатуу тоюна чакыруу</h1>
+          <p class="cover-subtitle">Азият &amp; Миргүл</p>
+          <div class="cover-date">14-сентябрь 2026-жыл</div>
+          <button class="open-btn" type="button">Ачуу</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-shell">
+      <main class="content">
+        <section class="card hero reveal">
+          <div class="hero-badge">Бакыттуу күбөлүк</div>
+          <svg class="hero-emblem" viewBox="0 0 200 150"><use href="#chandelier-mark"/></svg>
+          <div class="hero-monogram">A &amp; M</div>
+          <div class="line-decoration line-top"></div>
+          <h2>Кыз узатуу тоюна чакыруу</h2>
+          <p class="hero-names">Азият &amp; Миргүл</p>
+          <p class="hero-date">14-сентябрь 2026-жыл | АК-Таш айылы</p>
+          <div class="hero-details">
+            <span>🕖 18:30 башталышы</span>
+            <span>💝 АК батаңызды күтөбүз</span>
+          </div>
+          <div class="line-decoration line-bottom"></div>
+        </section>
+
+        <section class="card blessing reveal">
+          <div class="section-head">
+            <svg class="section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2m0 2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z" fill="#c2a172"/>
+            </svg>
+            <h3>Ак бата</h3>
+          </div>
+
+          <div class="blessing-text">
+            "Үйүбүздүн куту, жүрөгүбүздүн жылуулугу болгон кызыбыз Миргүлдү узатуу салтанатына
+            арналган аруу АК тойдо сиздерди кадырлуу конокубуз катары көрүүгө кубанычтабыз.
+            Сиздердин АК батаңыздар жана аруу каалоолоруңуздар жаштарга бакыт тартуулайт."
+          </div>
+        </section>
+
+        <section class="card countdown reveal">
+          <div class="section-head">
+            <svg class="section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" fill="#c2a172"/>
+            </svg>
+            <h3>Тойго чейин калган убакыт</h3>
+          </div>
+
+          <div class="countdown-grid" aria-label="Таймер до свадьбы">
+            <div class="time-box">
+              <span id="days">00</span>
+              <small>Күндөр</small>
+            </div>
+            <div class="time-box">
+              <span id="hours">00</span>
+              <small>Саат</small>
+            </div>
+            <div class="time-box">
+              <span id="minutes">00</span>
+              <small>Мүнөт</small>
+            </div>
+            <div class="time-box">
+              <span id="seconds">00</span>
+              <small>Секунд</small>
+            </div>
+          </div>
+        </section>
+
+        <section class="card location reveal">
+          <div class="section-head">
+            <svg class="section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5z" fill="#c2a172"/>
+            </svg>
+            <h3>Той өтүүчү дарек</h3>
+          </div>
+
+          <p class="location-name">АК-Таш айылы</p>
+          <a
+            class="map-button"
+            href="https://go.2gis.com/2Wvt6"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            🗺️ 2GIS / Картадан көрүү
+          </a>
+        </section>
+
+        <section class="card gifts reveal">
+          <div class="section-head">
+            <svg class="section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 6h-2.18c.11-.4.18-.82.18-1.25 0-1.38-.72-2.5-2-2.5-.75 0-1.36.37-1.72 1-.36-.63-.97-1-1.72-1-.6 0-1.46.25-2 1-.25.25-.46.56-.62.86-.16-.3-.37-.61-.62-.86-.54-.75-1.4-1-2-1-.55 0-1.22.13-1.72 1C4.42 2.5 3.72 3.62 3.72 5.75 3.72 6.18 3.79 6.6 3.9 7H2c-1.1 0-2 .9-2 2v3c0 .55.45 1 1 1h1v6c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h1c.55 0 1-.45 1-1v-3c0-1.1-.9-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM2.5 9h15v3h-15V9zm12.5 12H5v-6h10v6z" fill="#c2a172"/>
+            </svg>
+            <h3>ЖАШТАРГА БЕЛЕК</h3>
+            <p class="gifts-subtitle">(кошумча-топтомой)</p>
+          </div>
+
+          <div class="bank-badge">MBank / O!Bank </div>
+
+          <div class="copy-card">
+            <p class="copy-hint">Номерди көчүрүү үчүн басыңыз</p>
+            <div class="copy-row">
+              <span class="phone-number" aria-label="Номер">+996 (707) 707-564</span>
+              <button
+                class="copy-button"
+                type="button"
+                aria-label="Номерди көчүрүү"
+                title="Номерди көчүрүү"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 18H8V7h11v16z"/>
+                </svg>
+              </button>
+            </div>
+            <p class="account-name">Аты: Миргүл</p>
+          </div>
+        </section>
+
+        <section class="card rsvp reveal">
+          <div class="section-head">
+            <svg class="section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zm-5.04-6.71l-2.75 3.54-2.12-2.12-1.41 1.41L11.21 17l4.12-5.29z" fill="#c2a172"/>
+            </svg>
+            <h3>Катышууңузду ырастаңыз</h3>
+          </div>
+
+          <form id="rsvpForm" novalidate>
+            <div class="field-group">
+              <label for="guestName">Сиздин аты-жөнүңүз <span>*</span></label>
+              <input id="guestName" name="guestName" type="text" placeholder="Атыңызды жазыңыз" required />
+            </div>
+
+            <div class="field-group guest-fields">
+              <label>Келүүчү адамдардын саны <span>*</span></label>
+              <div class="guest-counter" aria-label="Келүүчү адамдардын саны">
+                <button class="counter-btn minus" type="button" aria-label="Азайтуу">−</button>
+                <span class="counter-value" aria-live="polite">2</span>
+                <button class="counter-btn plus" type="button" aria-label="Көбөйтүү">+</button>
+              </div>
+              <input type="hidden" id="guestCount" name="guestCount" value="2" />
+            </div>
+
+            <div class="field-group">
+              <label>Тойго келе аласызбы? <span>*</span></label>
+              <div class="radio-group" role="radiogroup" aria-label="Катышуу">
+                <label class="radio-option">
+                  <input type="radio" name="attendance" value="Ооба, келем" checked />
+                  <span>Ооба, келем</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="attendance" value="Азырынча билбейм" />
+                  <span>Азырынча билбейм</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="attendance" value="Тилекке каршы, келе албайм" />
+                  <span>Тилекке каршы, келе албайм</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="message">Каалоо-тилектериңиз</label>
+              <textarea id="message" name="message" rows="4" placeholder="Жаштарга ак каалооңузду калтырыңыз..."></textarea>
+            </div>
+
+            <button class="submit-btn" type="submit">Жөнөтүү</button>
+            <p id="formStatus" class="status-message" aria-live="polite"></p>
+          </form>
+
+          <div id="thankYou" class="thank-you hidden" aria-live="polite">
+            <h4>Рахмат! Сиздин жообуңуз кабыл алынды.</h4>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="copy-toast" id="copyToast" aria-live="polite">✓ Номер көчүрүлдү!</div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
