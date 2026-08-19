@@ -59,13 +59,169 @@ button {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 18% 12%, rgba(194, 161, 114, 0.14), transparent 32%),
-    radial-gradient(circle at 85% 18%, rgba(194, 161, 114, 0.1), transparent 30%),
-    radial-gradient(circle at 50% 95%, rgba(194, 161, 114, 0.08), transparent 40%),
+    radial-gradient(circle at 18% 12%, rgba(194, 161, 114, 0.16), transparent 32%),
+    radial-gradient(circle at 85% 18%, rgba(194, 161, 114, 0.12), transparent 30%),
+    radial-gradient(circle at 50% 95%, rgba(194, 161, 114, 0.1), transparent 40%),
+    repeating-linear-gradient(115deg, transparent 0 80px, rgba(139, 111, 71, 0.018) 81px, transparent 82px 160px),
+    repeating-linear-gradient(25deg, transparent 0 120px, rgba(255, 255, 255, 0.24) 121px, transparent 122px 240px),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
   transform: translate3d(0, 0, 0);
   will-change: transform;
   animation: bg-breathe 14s ease-in-out infinite;
+}
+
+.page-bg::before,
+.page-bg::after {
+  content: '';
+  position: absolute;
+  width: min(34vw, 420px);
+  height: min(34vw, 420px);
+  border: 1px solid rgba(139, 111, 71, 0.08);
+  border-radius: 50%;
+  opacity: 0.75;
+}
+
+.page-bg::before {
+  top: -190px;
+  left: -150px;
+  box-shadow:
+    32px 32px 0 -31px rgba(139, 111, 71, 0.2),
+    64px 64px 0 -63px rgba(139, 111, 71, 0.18),
+    96px 96px 0 -95px rgba(139, 111, 71, 0.14);
+  transform: rotate(-24deg);
+}
+
+.page-bg::after {
+  right: -170px;
+  bottom: -190px;
+  background:
+    radial-gradient(ellipse at 34% 32%, rgba(194, 161, 114, 0.16) 0 3%, transparent 4%),
+    radial-gradient(ellipse at 54% 22%, rgba(194, 161, 114, 0.12) 0 2%, transparent 3%),
+    radial-gradient(ellipse at 42% 52%, rgba(194, 161, 114, 0.1) 0 3%, transparent 4%);
+  transform: rotate(24deg);
+}
+
+.background-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.92;
+}
+
+.background-botanical {
+  position: absolute;
+  display: none;
+  left: -28px;
+  bottom: -58px;
+  width: min(34vw, 360px);
+  height: min(108vh, 920px);
+  filter: drop-shadow(6px 10px 9px rgba(139, 111, 71, 0.16));
+  transform: rotate(-3deg);
+}
+
+.botanical-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.botanical-stem {
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  height: 88%;
+  border-radius: 100%;
+  background: linear-gradient(180deg, rgba(139, 111, 71, 0.26), rgba(139, 111, 71, 0.68));
+  transform-origin: bottom center;
+}
+
+.botanical-stem-main { left: 32%; transform: rotate(8deg); }
+.botanical-stem-left { left: 28%; height: 68%; transform: rotate(-18deg); }
+.botanical-stem-right { left: 36%; height: 74%; transform: rotate(24deg); }
+
+.botanical-leaf,
+.botanical-flower {
+  position: absolute;
+  display: block;
+}
+
+.botanical-leaf {
+  width: 56px;
+  height: 19px;
+  border-radius: 100% 0 100% 0;
+  background: linear-gradient(135deg, rgba(194, 161, 114, 0.46), rgba(139, 111, 71, 0.12));
+  transform-origin: 0 50%;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.42);
+}
+
+.botanical-leaf-1 { left: 17%; bottom: 18%; transform: rotate(-28deg); }
+.botanical-leaf-2 { left: 27%; bottom: 29%; transform: rotate(26deg) scale(0.78); }
+.botanical-leaf-3 { left: 10%; bottom: 40%; transform: rotate(-42deg) scale(0.68); }
+.botanical-leaf-4 { left: 31%; bottom: 48%; transform: rotate(32deg) scale(0.64); }
+.botanical-leaf-5 { left: 23%; bottom: 61%; transform: rotate(-35deg) scale(0.56); }
+.botanical-leaf-6 { left: 36%; bottom: 68%; transform: rotate(34deg) scale(0.52); }
+.botanical-leaf-7 { left: 7%; bottom: 8%; transform: rotate(-18deg) scale(1.18); }
+.botanical-leaf-8 { left: 44%; bottom: 12%; transform: rotate(18deg) scale(0.88); }
+
+.botanical-flower {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #b58d5e 0 12%, transparent 14%),
+    radial-gradient(ellipse at 50% 12%, rgba(255, 253, 246, 0.9) 0 24%, transparent 27%),
+    radial-gradient(ellipse at 88% 50%, rgba(255, 253, 246, 0.82) 0 24%, transparent 27%),
+    radial-gradient(ellipse at 50% 88%, rgba(255, 253, 246, 0.82) 0 24%, transparent 27%),
+    radial-gradient(ellipse at 12% 50%, rgba(255, 253, 246, 0.82) 0 24%, transparent 27%);
+  filter: blur(0.15px);
+}
+
+.botanical-flower-1 { left: 28%; bottom: 78%; transform: scale(1.1); }
+.botanical-flower-2 { left: 42%; bottom: 69%; transform: scale(0.76); }
+.botanical-flower-3 { left: 16%; bottom: 63%; transform: scale(0.86); }
+.botanical-flower-4 { left: 49%; bottom: 55%; transform: scale(0.64); }
+.botanical-flower-5 { left: 8%; bottom: 48%; transform: scale(0.72); }
+.botanical-flower-6 { left: 37%; bottom: 40%; transform: scale(0.58); }
+
+.background-ribbon {
+  position: absolute;
+  top: -8%;
+  right: -42px;
+  width: min(17vw, 190px);
+  height: 116%;
+  transform: rotate(7deg);
+  background: linear-gradient(102deg, transparent 0 25%, rgba(255, 255, 255, 0.72) 34%, rgba(196, 159, 109, 0.48) 48%, rgba(255, 255, 255, 0.86) 63%, rgba(210, 178, 133, 0.24) 70%, transparent 80%);
+  clip-path: polygon(34% 0, 100% 0, 76% 18%, 96% 36%, 67% 51%, 96% 70%, 66% 87%, 100% 100%, 0 100%, 28% 85%, 4% 68%, 31% 50%, 5% 32%, 30% 17%);
+  filter: drop-shadow(-12px 10px 16px rgba(139, 111, 71, 0.18));
+}
+
+.background-ribbon::before,
+.background-ribbon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 30%, rgba(255, 255, 255, 0.42) 46%, transparent 60%);
+}
+
+.background-ribbon::before { transform: translateX(-18px) scaleX(0.78); opacity: 0.7; }
+.background-ribbon::after { transform: translateX(20px) scaleX(0.62); opacity: 0.45; }
+
+.background-ornament {
+  position: absolute;
+  top: 72px;
+  left: 50%;
+  width: min(64vw, 680px);
+  transform: translateX(-50%);
+  opacity: 0.7;
+}
+
+.background-ornament svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
 @keyframes bg-breathe {
@@ -77,9 +233,11 @@ button {
 .particles-container {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 3;
   pointer-events: none;
   overflow: hidden;
+  opacity: 0.62;
+  mix-blend-mode: multiply;
 }
 
 .particle {
@@ -124,9 +282,11 @@ button {
 .petals-container {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 3;
   pointer-events: none;
   overflow: hidden;
+  opacity: 0.7;
+  mix-blend-mode: multiply;
 }
 
 .petal {
@@ -165,9 +325,10 @@ button {
 .glow-orbs {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 3;
   pointer-events: none;
   overflow: hidden;
+  opacity: 0.72;
 }
 
 .glow-orb {
@@ -221,7 +382,7 @@ button {
 .light-sweep {
   position: fixed;
   inset: -20% -60%;
-  z-index: 1;
+  z-index: 4;
   pointer-events: none;
   background: linear-gradient(
     100deg,
@@ -620,6 +781,18 @@ button {
   fill: currentColor;
 }
 
+.music-icon-playing {
+  display: none;
+}
+
+.music-player-btn.playing .music-icon-muted {
+  display: none;
+}
+
+.music-player-btn.playing .music-icon-playing {
+  display: block;
+}
+
 .music-wave {
   position: absolute;
   width: 100%;
@@ -635,8 +808,8 @@ button {
 }
 
 @keyframes wave-pulse {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(1.8); opacity: 0; }
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1.8); opacity: 0; }
 }
 
 /* ============== MAIN CONTENT ============== */
@@ -1246,8 +1419,57 @@ textarea {
   z-index: 30;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 50% 35%, #fdfaf4 0%, #f3ecdf 78%);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.86) 0 23%, transparent 58%),
+    radial-gradient(ellipse at 12% 78%, rgba(218, 190, 147, 0.2), transparent 35%),
+    radial-gradient(ellipse at 91% 48%, rgba(224, 201, 166, 0.2), transparent 32%),
+    repeating-radial-gradient(circle at 30% 20%, rgba(139, 111, 71, 0.025) 0 1px, transparent 1px 5px),
+    linear-gradient(115deg, #f8f0e4 0%, #fffdf8 46%, #f4eadb 100%);
   transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.intro-screen::before,
+.intro-screen::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Fine botanical silhouette on the left side of the invitation. */
+.intro-screen::before {
+  left: -2vw;
+  bottom: -4vh;
+  width: min(27vw, 260px);
+  height: min(78vh, 650px);
+  opacity: 0.58;
+  transform: rotate(-7deg);
+  background:
+    radial-gradient(ellipse at 25% 18%, rgba(193, 155, 104, 0.5) 0 3%, transparent 4%),
+    radial-gradient(ellipse at 47% 28%, rgba(193, 155, 104, 0.38) 0 4%, transparent 5%),
+    radial-gradient(ellipse at 35% 42%, rgba(193, 155, 104, 0.42) 0 3%, transparent 4%),
+    radial-gradient(ellipse at 63% 53%, rgba(193, 155, 104, 0.34) 0 4%, transparent 5%),
+    linear-gradient(78deg, transparent 45%, rgba(139, 111, 71, 0.42) 46% 48%, transparent 49%),
+    linear-gradient(105deg, transparent 52%, rgba(139, 111, 71, 0.23) 53% 54%, transparent 55%);
+  filter: blur(0.3px);
+  clip-path: polygon(0 0, 75% 0, 100% 100%, 0 100%);
+}
+
+/* A soft folded silk ribbon on the right edge. */
+.intro-screen::after {
+  top: -8%;
+  right: -7vw;
+  width: min(18vw, 190px);
+  height: 116%;
+  opacity: 0.72;
+  transform: rotate(9deg);
+  background:
+    linear-gradient(102deg, transparent 0 30%, rgba(255, 255, 255, 0.78) 38%, rgba(207, 177, 133, 0.32) 54%, rgba(255, 255, 255, 0.74) 69%, transparent 78%),
+    linear-gradient(78deg, transparent 0 42%, rgba(190, 154, 105, 0.24) 52%, transparent 63%);
+  clip-path: polygon(35% 0, 100% 0, 76% 23%, 100% 43%, 71% 62%, 100% 84%, 68% 100%, 0 100%, 25% 82%, 4% 63%, 29% 43%, 2% 22%);
+  filter: blur(0.2px) drop-shadow(-10px 8px 16px rgba(139, 111, 71, 0.12));
 }
 
 .intro-screen.is-closed {
@@ -1413,6 +1635,25 @@ textarea {
     font-size: 0.72rem;
     letter-spacing: 0.1em;
   }
+
+  .background-botanical {
+    left: -62px;
+    width: 235px;
+    height: 94vh;
+    opacity: 0.84;
+  }
+
+  .background-ribbon {
+    right: -54px;
+    width: 104px;
+    opacity: 0.68;
+  }
+
+  .background-ornament {
+    top: 72px;
+    width: 128vw;
+    opacity: 0.62;
+  }
 }
 
 @media (min-width: 768px) {
@@ -1446,4 +1687,492 @@ textarea {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.music-wave{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+.music-player-btn.playing .music-wave{
+  animation: music-pulse 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+@keyframes music-pulse{
+  0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+}
+
+/* ============== HEADER ============== */
+.site-header{
+  padding: 32px 20px 12px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.header-content{
+  max-width: 600px;
+  margin: 0 auto;
+}
+.header-ornament{
+  width: 120px;
+  margin: 0 auto 8px;
+  color: var(--gold);
+}
+.header-title{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 500;
+  color: var(--gold-deep);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ============== INTRO SCREEN ============== */
+.intro-screen{
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--bg);
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+.intro-screen.hidden{
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.cover-card{
+  width: 100%;
+  max-width: 440px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+.cover-frame{
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cover-emblem{
+  width: 70px;
+  height: 52px;
+  margin-bottom: 12px;
+}
+.cover-monogram{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-style: italic;
+  color: var(--gold-deep);
+  margin-bottom: 16px;
+}
+.cover-title{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+.cover-subtitle{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+  font-style: italic;
+  color: var(--gold-deep);
+  margin: 0 0 16px;
+}
+.cover-date{
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.open-btn,
+.submit-btn,
+.map-button{
+  background: linear-gradient(135deg, #d9b98a, var(--gold-deep));
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 36px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  box-shadow: 0 8px 20px rgba(139, 111, 71, 0.25);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.open-btn:hover,
+.submit-btn:hover,
+.map-button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(139, 111, 71, 0.35);
+}
+
+/* ============== MAIN LAYOUT & CARDS ============== */
+.page-shell{
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 0 16px 60px;
+}
+.content{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.card{
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 36px 24px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hero Section */
+.hero-badge{
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  border: 1px solid var(--card-border);
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero-emblem{
+  width: 80px;
+  height: 60px;
+  margin: 0 auto 8px;
+}
+.hero-monogram{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-style: italic;
+  color: var(--gold-deep);
+  margin-bottom: 12px;
+}
+.hero h2{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  font-weight: 600;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+.hero-names{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-style: italic;
+  color: var(--gold-deep);
+  margin: 0 0 16px;
+}
+.hero-date{
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.hero-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.line-decoration{
+  height: 1px;
+  width: 60%;
+  margin: 20px auto;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* Section Common Headers */
+.section-head{
+  margin-bottom: 20px;
+}
+.section-icon{
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 8px;
+}
+.section-head h3{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin: 0;
+  color: var(--gold-deep);
+  text-transform: uppercase;
+}
+
+/* Blessing Section */
+.blessing-text{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+/* Countdown Grid */
+.countdown-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+.time-box{
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.time-box span{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold-deep);
+  line-height: 1;
+}
+.time-box small{
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Location Section */
+.location-name{
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+/* Gifts Section */
+.gifts-subtitle{
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 4px 0 0;
+}
+.bank-badge{
+  display: inline-block;
+  background: var(--gold-soft);
+  color: var(--gold-deep);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.copy-card{
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+.copy-hint{
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+.copy-row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.phone-number{
+  font-family: monospace;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.copy-button{
+  background: transparent;
+  border: none;
+  color: var(--gold-deep);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+.copy-button:hover{
+  transform: scale(1.15);
+}
+.copy-button svg{
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+.account-name{
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* RSVP Form */
+#rsvpForm{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+}
+.field-group{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field-group label{
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text);
+}
+.field-group label span{
+  color: #d9534f;
+}
+.field-group input[type="text"],
+.field-group textarea{
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  color: var(--text);
+  transition: border-color 0.3s ease;
+}
+.field-group input[type="text"]:focus,
+.field-group textarea:focus{
+  outline: none;
+  border-color: var(--gold);
+}
+.guest-counter{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 6px 16px;
+  width: fit-content;
+}
+.counter-btn{
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--gold-deep);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.counter-value{
+  font-weight: 600;
+  font-size: 1.1rem;
+  min-width: 20px;
+  text-align: center;
+}
+.radio-group{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+.radio-option{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.radio-option input[type="radio"]{
+  accent-color: var(--gold-deep);
+  width: 18px;
+  height: 18px;
+}
+.status-message{
+  font-size: 0.88rem;
+  text-align: center;
+  margin-top: 8px;
+}
+.thank-you{
+  text-align: center;
+  padding: 20px 0;
+}
+.thank-you h4{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: var(--gold-deep);
+  margin: 0;
+}
+.hidden{
+  display: none !important;
+}
+
+/* Toast */
+.copy-toast{
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(74, 63, 47, 0.9);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.copy-toast.show{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Animations Scroll Reveal */
+.reveal{
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.active{
+  opacity: 1;
+  transform: translateY(0);
 }

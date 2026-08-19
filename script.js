@@ -8,7 +8,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const envelopeOverlay = document.querySelector('.envelope-overlay');
   const envelopeScene = document.querySelector('.envelope-scene');
   const envelopeContainer = document.querySelector('.envelope-container');
+  const musicButton = document.querySelector('.music-player-btn');
+  const bgMusic = document.getElementById('bgMusic');
   let envelopeOpened = false;
+  let isPlaying = false;
+
+  const updateMusicButton = () => {
+    if (!musicButton) return;
+    const label = isPlaying ? 'Музыканы өчүрүү' : 'Музыканы ойнотуу';
+    musicButton.classList.toggle('playing', isPlaying);
+    musicButton.title = label;
+    musicButton.setAttribute('aria-label', label);
+    musicButton.setAttribute('aria-pressed', String(isPlaying));
+  };
+
+  const playMusic = () => {
+    if (!bgMusic || isPlaying) return;
+
+    bgMusic.play()
+      .then(() => {
+        isPlaying = true;
+        updateMusicButton();
+      })
+      .catch((err) => console.log('Audio play failed:', err));
+  };
+
+  const stopMusic = () => {
+    if (!bgMusic) return;
+    bgMusic.pause();
+    isPlaying = false;
+    updateMusicButton();
+  };
 
   const closeEnvelope = () => {
     if (envelopeOverlay && !envelopeOverlay.classList.contains('hidden')) {
@@ -24,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (envelopeScene) envelopeScene.classList.add('is-opening');
     if (envelopeContainer) envelopeContainer.classList.add('is-opening');
+    playMusic();
 
     // Keep the content open long enough to read: exactly 4 seconds.
     setTimeout(closeEnvelope, ENVELOPE_OPEN_HOLD_MS);
@@ -41,26 +72,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============== MUSIC PLAYER ==============
-  const musicButton = document.querySelector('.music-player-btn');
-  const bgMusic = document.getElementById('bgMusic');
-  let isPlaying = false;
-
   if (musicButton && bgMusic) {
     musicButton.addEventListener('click', () => {
       if (isPlaying) {
-        bgMusic.pause();
-        musicButton.classList.remove('playing');
-        isPlaying = false;
+        stopMusic();
       } else {
-        bgMusic.play().catch(err => console.log('Audio play failed:', err));
-        musicButton.classList.add('playing');
-        isPlaying = true;
+        playMusic();
       }
     });
 
     bgMusic.addEventListener('ended', () => {
       bgMusic.currentTime = 0;
-      bgMusic.play().catch(err => console.log('Audio play failed:', err));
+      isPlaying = false;
+      playMusic();
     });
   }
 
@@ -330,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.counter-btn.minus')?.addEventListener('click', () => updateGuestCounter(guestCount - 1));
   document.querySelector('.counter-btn.plus')?.addEventListener('click', () => updateGuestCounter(guestCount + 1));
 
-  // ============== TELEGRAM FORM SUBMISSION ==============
+ // ============== TELEGRAM FORM SUBMISSION ==============
   const form = document.getElementById('rsvpForm');
   const thankYouBlock = document.getElementById('thankYou');
   const formStatus = document.getElementById('formStatus');
@@ -351,32 +375,42 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const botToken = '8741636484:AAEwEt0gk3DoOWMd8pm-Rwwf5eoMHCLexCg';
-      const chatId = '6956101864';
-      const submitButton = form.querySelector('.submit-btn');
+      
+      // 🔹 Добавьте сюда новые Chat ID через запятую
+      const chatIds = ['6956101864', '1253930507']; 
 
-      const payload = {
-        chat_id: chatId,
-        parse_mode: 'Markdown',
-        text: `🎉 *Кыз узатууга жаңы жооп!*\n\n👤 *Аты-жөнү:* ${nameInput.value.trim()}\n❓ *Катышуусу:* ${attendanceValue}\n👥 *Адам саны:* ${guestsCount}\n💬 *Каалоо-тилек:* ${messageValue || 'Жок'}`
-      };
+      const submitButton = form.querySelector('.submit-btn');
 
       try {
         submitButton.disabled = true;
         submitButton.textContent = 'Жөнөтүлүүдө...';
         formStatus.textContent = '';
 
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
+        // 🔹 Создаем массив запросов для каждого Chat ID
+        const requests = chatIds.map((chatId) => {
+          const payload = {
+            chat_id: chatId,
+            parse_mode: 'Markdown',
+            text: `🎉 *Кыз узатууга жаңы жооп!*\n\n👤 *Аты-жөнү:* ${nameInput.value.trim()}\n❓ *Катышуусу:* ${attendanceValue}\n👥 *Адам саны:* ${guestsCount}\n💬 *Каалоо-тилек:* ${messageValue || 'Жок'}`
+          };
+
+          return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          }).then(res => res.json());
         });
 
-        const result = await response.json();
+        // 🔹 Отправляем во все чаты параллельно
+        const results = await Promise.all(requests);
 
-        if (!response.ok || !result.ok) {
-          throw new Error(result.description || 'Жөнөтүү катасы');
+        // Проверяем, прошла ли отправка хотя бы в один чат
+        const isSuccess = results.some(result => result.ok);
+
+        if (!isSuccess) {
+          throw new Error('Бир дагы чатка жөнөтүлгөн жок');
         }
 
         form.classList.add('hidden');
@@ -387,6 +421,226 @@ document.addEventListener('DOMContentLoaded', () => {
         formStatus.textContent = 'Жөнөтүү мүмкүн эмес. Кайра аракет кылып көрүңүз.';
         submitButton.disabled = false;
         submitButton.textContent = 'Жөнөтүү';
+      }
+    });
+  }
+});
+
+// script.js
+document.addEventListener('DOMContentLoaded', () => {
+  // GSAP ScrollTrigger Setup
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.reveal').forEach((elem) => {
+      gsap.fromTo(
+        elem,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: elem,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    });
+  } else {
+    // Fallback IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll('.reveal').forEach((elem) => observer.observe(elem));
+  }
+
+  // Envelope Opening Sequence & Audio Trigger
+  const envelopeOverlay = document.querySelector('.envelope-overlay');
+  const envelopeScene = document.querySelector('.envelope-scene');
+  const envelopeContainer = document.querySelector('.envelope-container');
+  const introScreen = document.querySelector('.intro-screen');
+  const bgMusic = document.getElementById('bgMusic');
+  const musicBtn = document.querySelector('.music-player-btn');
+
+  let isPlaying = false;
+
+  function toggleMusic(play) {
+    if (play) {
+      bgMusic
+        .play()
+        .then(() => {
+          isPlaying = true;
+          musicBtn.classList.add('playing');
+          musicBtn.setAttribute('aria-pressed', 'true');
+        })
+        .catch(() => {
+          isPlaying = false;
+          musicBtn.classList.remove('playing');
+          musicBtn.setAttribute('aria-pressed', 'false');
+        });
+    } else {
+      bgMusic.pause();
+      isPlaying = false;
+      musicBtn.classList.remove('playing');
+      musicBtn.setAttribute('aria-pressed', 'false');
+    }
+  }
+
+  musicBtn.addEventListener('click', () => {
+    toggleMusic(!isPlaying);
+  });
+
+  if (envelopeContainer) {
+    envelopeContainer.addEventListener('click', () => {
+      envelopeScene.classList.add('is-opening');
+      envelopeContainer.classList.add('is-opening');
+
+      // Attempt audio playback on user gesture
+      toggleMusic(true);
+
+      setTimeout(() => {
+        envelopeOverlay.classList.add('hidden');
+      }, 1800);
+    });
+  }
+
+  // Backup Open Button in Intro Screen
+  const openBtn = document.querySelector('.open-btn');
+  if (openBtn) {
+    openBtn.addEventListener('click', () => {
+      introScreen.classList.add('hidden');
+      toggleMusic(true);
+    });
+  }
+
+  // Countdown Timer Target: Sept 14, 2026, 18:30:00
+  const targetDate = new Date('2026-09-14T18:30:00').getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    if (difference < 0) {
+      document.getElementById('days').innerText = '00';
+      document.getElementById('hours').innerText = '00';
+      document.getElementById('minutes').innerText = '00';
+      document.getElementById('seconds').innerText = '00';
+      return;
+    }
+
+    const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+    document.getElementById('days').innerText = String(d).padStart(2, '0');
+    document.getElementById('hours').innerText = String(h).padStart(2, '0');
+    document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+    document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // Guest Counter Controls
+  const minusBtn = document.querySelector('.counter-btn.minus');
+  const plusBtn = document.querySelector('.counter-btn.plus');
+  const counterValue = document.querySelector('.counter-value');
+  const guestCountInput = document.getElementById('guestCount');
+
+  if (minusBtn && plusBtn) {
+    minusBtn.addEventListener('click', () => {
+      let val = parseInt(guestCountInput.value, 10) || 1;
+      if (val > 1) {
+        val--;
+        guestCountInput.value = val;
+        counterValue.innerText = val;
+      }
+    });
+
+    plusBtn.addEventListener('click', () => {
+      let val = parseInt(guestCountInput.value, 10) || 1;
+      if (val < 10) {
+        val++;
+        guestCountInput.value = val;
+        counterValue.innerText = val;
+      }
+    });
+  }
+
+  // Copy Phone Number
+  const copyBtn = document.querySelector('.copy-button');
+  const phoneSpan = document.querySelector('.phone-number');
+  const copyToast = document.getElementById('copyToast');
+
+  if (copyBtn && phoneSpan) {
+    copyBtn.addEventListener('click', () => {
+      const rawNumber = phoneSpan.innerText.replace(/[^\d+]/g, '');
+      navigator.clipboard.writeText(rawNumber).then(() => {
+        copyToast.classList.add('show');
+        setTimeout(() => copyToast.classList.remove('show'), 2500);
+      });
+    });
+  }
+
+  // RSVP Form Handler via Telegram Bot or Webhook
+  const rsvpForm = document.getElementById('rsvpForm');
+  const formStatus = document.getElementById('formStatus');
+  const thankYou = document.getElementById('thankYou');
+
+  if (rsvpForm) {
+    rsvpForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const guestName = document.getElementById('guestName').value.trim();
+      const guestCount = document.getElementById('guestCount').value;
+      const attendance = document.querySelector('input[name="attendance"]:checked')?.value;
+      const message = document.getElementById('message').value.trim();
+
+      if (!guestName) {
+        formStatus.style.color = '#d9534f';
+        formStatus.innerText = 'Сураныч, аты-жөнүңүздү жазыңыз.';
+        return;
+      }
+
+      formStatus.style.color = 'var(--gold-deep)';
+      formStatus.innerText = 'Жөнөтүлүүдө...';
+
+      // Setup payload matching Telegram Bot API or custom endpoint
+      const payload = {
+        name: guestName,
+        guests: guestCount,
+        attendance: attendance,
+        message: message,
+      };
+
+      try {
+        // Placeholder API URL — connect your endpoint/Telegram bot fetch here
+        /*
+        await fetch('YOUR_TELEGRAM_BOT_WEBHOOK_URL', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        */
+
+        // Visual feedback
+        rsvpForm.classList.add('hidden');
+        thankYou.classList.remove('hidden');
+      } catch (err) {
+        formStatus.style.color = '#d9534f';
+        formStatus.innerText = 'Ката чыкты. Экинчи кайталап көрүңүз.';
       }
     });
   }
