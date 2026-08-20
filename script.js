@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.utils.toArray('.reveal').forEach((section) => {
       const animatedItems = Array.from(
         section.querySelectorAll(
-          '.section-head, .blessing-text, .countdown-grid, .location-name, .map-button, .copy-card, .field-group, .guest-counter, .submit-btn, .thank-you'
+          '.section-head, .blessing-text, .poem-text, .countdown-grid, .location-name, .map-button, .copy-card, .field-group, .guest-counter, .submit-btn, .thank-you'
         )
       );
 
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============== COUNTDOWN TIMER ==============
-  const targetDate = new Date('2026-09-14T18:30:00+06:00').getTime();
+  const targetDate = new Date('2026-09-12T11:00:00+06:00').getTime();
   const daysEl = document.getElementById('days');
   const hoursEl = document.getElementById('hours');
   const minutesEl = document.getElementById('minutes');
@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         form.classList.add('hidden');
         thankYouBlock.classList.remove('hidden');
-        thankYouBlock.innerHTML = '<h4>Рахмат! Сиздин жообуңуз кабыл алынды. 14-сентябрда күтөбүз!</h4>';
+        thankYouBlock.innerHTML = '<h4>Рахмат! Сиздин жообуңуз кабыл алынды. 12-сентябрда күтөбүз!</h4>';
       } catch (error) {
         console.error('Telegram error:', error);
         formStatus.textContent = 'Жөнөтүү мүмкүн эмес. Кайра аракет кылып көрүңүз.';
@@ -426,8 +426,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// script.js
-document.addEventListener('DOMContentLoaded', () => {
+/* Duplicate initialization block removed. The handler above owns the page. */
+/*
   // GSAP ScrollTrigger Setup
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -524,8 +524,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Countdown Timer Target: Sept 14, 2026, 18:30:00
-  const targetDate = new Date('2026-09-14T18:30:00').getTime();
+  // Countdown Timer Target: Sept 12, 2026, 11:00:00
+  const targetDate = new Date('2026-09-12T11:00:00+06:00').getTime();
 
   function updateCountdown() {
     const now = new Date().getTime();
@@ -627,13 +627,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         // Placeholder API URL — connect your endpoint/Telegram bot fetch here
-        /*
         await fetch('YOUR_TELEGRAM_BOT_WEBHOOK_URL', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        */
 
         // Visual feedback
         rsvpForm.classList.add('hidden');
@@ -645,3 +643,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+*/

@@ -1487,16 +1487,17 @@ textarea {
   position: relative;
   overflow: hidden;
   border-radius: 6px;
-  background: rgba(255, 253, 248, 0.75);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 26px 60px rgba(139, 111, 71, 0.2);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
   padding: 40px 24px 30px;
   text-align: center;
-  backdrop-filter: blur(10px);
+  backdrop-filter: none;
   transform-style: preserve-3d;
 }
 
 .cover-ornament {
+  display: none;
   position: absolute;
   width: 90px;
   height: 90px;
@@ -1744,7 +1745,9 @@ textarea {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: var(--bg);
+  background:
+    linear-gradient(rgba(250, 245, 236, 0.46), rgba(250, 245, 236, 0.58)),
+    url('Gemini_Generated_Image_npe3x5npe3x5npe3.jfif') center 35% / auto 135% no-repeat;
   transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 .intro-screen.hidden{
@@ -1755,16 +1758,16 @@ textarea {
 .cover-card{
   width: 100%;
   max-width: 440px;
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(12px);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 .cover-frame{
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
+  border: 0;
+  border-radius: 0;
   padding: 40px 24px;
   text-align: center;
   position: relative;
@@ -2105,6 +2108,29 @@ textarea {
   font-weight: 600;
   font-size: 1.1rem;
   min-width: 20px;
+  text-align: center;
+}
+
+.poetry-card {
+  text-align: center;
+}
+
+.poem-text {
+  color: var(--text);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.12rem, 3.8vw, 1.38rem);
+  font-style: italic;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.hosts-signature {
+  margin: 24px 0 18px;
+  color: var(--gold-deep);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.12rem;
+  font-style: italic;
+  line-height: 1.5;
   text-align: center;
 }
 .radio-group{
